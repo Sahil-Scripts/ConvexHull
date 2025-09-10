@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Convex Hull Comparative Analysis API",
+    "version": "1.0.0",
+    "description": "Backend API for Convex Hull Comparative Analysis (Jarvis vs Graham)."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8000",
+      "description": "Local development server"
+    }
+  ],
+  "paths": {
+    "/generate": {
+      "get": {
+        "summary": "Generate random points",
+        "parameters": [
+          { "name": "n", "in": "query", "schema": { "type": "integer" }, "required": true, "description": "Number of points" },
+          { "name": "seed", "in": "query", "schema": { "type": "integer" }, "required": false, "description": "Random seed (optional)" },
+          { "name": "dist", "in": "query", "schema": { "type": "string", "enum": ["square","circle","annulus","gaussian","clusters"] }, "required": false, "description": "Distribution type" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of generated points",
+            "content": {
+              "application/json": {
+                "example": {
+                  "points": [{ "x": 1.23, "y": 4.56 }],
+                  "n": 1000,
+                  "seed": 42,
+                  "dist": "circle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/hulls": {
+      "get": {
+        "summary": "Compute Jarvis and Graham convex hulls",
+        "parameters": [
+          { "name": "n", "in": "query", "schema": { "type": "integer" }, "required": true },
+          { "name": "seed", "in": "query", "schema": { "type": "integer" }, "required": false },
+          { "name": "dist", "in": "query", "schema": { "type": "string" }, "required": false }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hull data and timings",
+            "content": {
+              "application/json": {
+                "example": {
+                  "jarvis": { "points": [{ "x": 0, "y": 0 }], "ms": 120 },
+                  "graham": { "points": [{ "x": 0, "y": 0 }], "ms": 15 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/steps": {
+      "get": {
+        "summary": "Step-by-step hull construction",
+        "parameters": [
+          { "name": "n", "in": "query", "schema": { "type": "integer" }, "required": true },
+          { "name": "seed", "in": "query", "schema": { "type": "integer" }, "required": false },
+          { "name": "dist", "in": "query", "schema": { "type": "string" }, "required": false }
+        ],
+        "responses": {
+          "200": {
+            "description": "Jarvis and Graham step sequences",
+            "content": {
+              "application/json": {
+                "example": {
+                  "jarvis": { "size": 40, "steps": [{ "type": "edge", "from": { "x": 1, "y": 2 }, "to": { "x": 3, "y": 4 } }] },
+                  "graham": { "size": 40, "steps": [{ "type": "push", "point": { "x": 5, "y": 6 } }] }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/analyze": {
+      "get": {
+        "summary": "Run performance sweep",
+        "parameters": [
+          { "name": "min", "in": "query", "schema": { "type": "integer" }, "required": false, "description": "Minimum input size" },
+          { "name": "max", "in": "query", "schema": { "type": "integer" }, "required": false, "description": "Maximum input size" },
+          { "name": "mult", "in": "query", "schema": { "type": "number" }, "required": false, "description": "Multiplier step" },
+          { "name": "dist", "in": "query", "schema": { "type": "string" }, "required": false, "description": "Distribution type" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Performance series (Jarvis vs Graham)",
+            "content": {
+              "application/json": {
+                "example": [
+                  { "n": 2000, "jarvis_ms": 100, "graham_ms": 10 },
+                  { "n": 4000, "jarvis_ms": 400, "graham_ms": 25 }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

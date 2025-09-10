@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Convex Hull — Jarvis vs Graham</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <header>
+    <h1>Convex Hull Comparative Analysis</h1>
+    <p class="sub">
+      Jarvis March (Gift Wrapping) vs Graham Scan (Monotone Chain).
+      <span class="hint">Jarvis: O(n·h) &nbsp;|&nbsp; Graham: O(n log n)</span>
+    </p>
+  </header>
+
+  <main class="layout">
+    <!-- Sidebar tools -->
+    <aside class="sidebar">
+      <h3>⚙️ Controls</h3>
+      <label>N <input id="n" type="number" value="20000" min="1" max="1000000"/></label>
+      <label>Seed <input id="seed" type="number" placeholder="default: N"/></label>
+      <label><input type="checkbox" id="freeDraw"/> Free Draw Mode</label>
+
+      <label>Distribution
+        <select id="dist">
+          <option value="square">Uniform Square</option>
+          <option value="circle">Uniform Disk</option>
+          <option value="annulus">Annulus Ring</option>
+          <option value="gaussian">Gaussian Blob</option>
+          <option value="clusters">3 Clusters</option>
+        </select>
+      </label>
+
+      <label>Render Mode
+        <select id="mode">
+          <option value="points">Points</option>
+          <option value="adaptive" selected>Adaptive (auto)</option>
+          <option value="heatmap">Density Heatmap</option>
+        </select>
+      </label>
+
+      <label>Point Shape
+        <select id="pointShape">
+          <option value="circle">Circle</option>
+          <option value="square" selected>Square</option>
+          <option value="triangle">Triangle</option>
+          <option value="cross">Cross</option>
+        </select>
+      </label>
+
+      <div class="btn-group">
+        <button id="shuffleBtn">Shuffle</button>
+        <button id="runBtn">Compute</button>
+        <button id="analyzeBtn">Analyze</button>
+      </div>
+      <span id="stats" class="stats"></span>
+
+      <hr/>
+
+      <label><input type="checkbox" id="grid" checked/> Grid</label>
+      <label><input type="checkbox" id="labels" checked/> Vertex Labels</label>
+      <label><input type="checkbox" id="explain" checked/> Teach Mode</label>
+      <label><input type="checkbox" id="hoverToggle" checked/> Hover Tooltips</label>
+      <label><input type="checkbox" id="mapMode"/> Map Mode</label>
+
+      <hr/>
+
+      <label>Outliers
+        <input id="outlierSlider" type="range" min="0" max="50" value="0"/>
+      </label>
+
+      <div class="toolbar-vert">
+        <button id="zoomIn">Zoom +</button>
+        <button id="zoomOut">Zoom −</button>
+        <button id="resetView">Reset</button>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="pane">
+        <div class="pane-head">
+          <h3>Scatter & Hulls</h3>
+          <div class="mini">
+            <span class="chip chip-jarvis">🔴 Jarvis (dashed, glowing)</span>
+            <span class="chip chip-graham">🔵 Graham (solid, glowing)</span>
+          </div>
+        </div>
+        <div class="canvas-wrap">
+          <canvas id="plot" width="980" height="640"></canvas>
+          <div id="tooltipPlot" class="tooltip hidden"></div>
+        </div>
+      </div>
+
+      <div class="pane">
+        <h3>Performance (ms vs N)</h3>
+        <div class="canvas-wrap">
+          <canvas id="chart" width="980" height="260"></canvas>
+          <div id="tooltipChart" class="tooltip hidden"></div>
+        </div>
+      </div>
+
+      <div class="pane">
+        <h3>Details & Metrics</h3>
+        <div id="details" class="kv"></div>
+      </div>
+
+      <div class="pane">
+        <h3>Teach Mode — what’s happening</h3>
+        <ol class="explain">
+          <li><b>Jarvis</b>: start at leftmost, keep counter-clockwise edge.</li>
+          <li><b>Graham</b>: sort points, build stacks; pop on right turns.</li>
+          <li><b>Tip</b>: Square at large N looks rectangular (try disk/annulus).</li>
+        </ol>
+        <div id="stepbox" class="stepbox hidden"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <small>
+      Pan: drag • Zoom: buttons • Reset: center • Hover for details • Outlier slider = noise stress test • Map mode = geofencing demo
+    </small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

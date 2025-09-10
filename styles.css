@@ -1,0 +1,165 @@
+:root{
+  --bg:#0b1020; --panel:#111833; --ink:#e6ecff; --muted:#9aa6ce;
+  --jarvis:#ff6b6b; --graham:#7aa2ff; --axis:#44507a; --grid:#202a52;
+  --ok:#10b981; --warn:#f59e0b; --tooltip:#0b1533; --tooltip-b:#32407a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif}
+header{padding:16px 20px}
+header h1{margin:0 0 6px 0}
+.sub{color:var(--muted);margin:6px 0 0 0}
+.hint{opacity:.9}
+
+.controls{display:flex;flex-direction:column;gap:10px;padding:12px 20px;background:rgba(255,255,255,0.03);border-top:1px solid #1b254a;border-bottom:1px solid #1b254a}
+.controls .row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.controls input,.controls select{width:160px;padding:6px 8px;border-radius:6px;border:1px solid #2a376b;background:#0e1533;color:var(--ink)}
+.controls button{background:#1a2756;color:var(--ink);border:1px solid #2f3f7a;border-radius:8px;padding:8px 12px;cursor:pointer}
+.controls button:hover{background:#213063}
+.stats{margin-left:auto;color:#c9d4ff}
+
+.layout{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;padding:18px 20px}
+.left,.right{display:flex;flex-direction:column;gap:18px}
+
+.pane{background:var(--panel);border:1px solid #1b254a;border-radius:12px;padding:14px}
+.pane-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mini{display:flex;gap:10px}
+.chip{font-size:12px;color:#cdd7ff;background:#0a1028;border:1px solid #1c2756;padding:4px 8px;border-radius:999px}
+.chip-jarvis{border-color:#5b1e1e;color:#ffd0d0}
+.chip-graham{border-color:#1e345b;color:#d0e0ff}
+
+.canvas-wrap{position:relative}
+canvas{display:block;background:#0a0f22;border-radius:10px;border:1px solid #19224a}
+
+.toolbar{display:flex;gap:8px;margin-top:8px}
+.toolbar button{background:#17224a;border:1px solid #2a376b;border-radius:8px;color:var(--ink);padding:6px 10px}
+
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kv b{color:#cdd7ff}
+.kv span{color:#9aa6ce;justify-self:end}
+
+.explain{margin:0 0 8px 18px;color:#cfd6ff}
+.stepbox{background:#0a1028;border:1px dashed #2b386a;padding:10px;border-radius:8px;color:#9fb4ff}
+.hidden{display:none}
+.ok{color:#5CFFB1}
+.warn{color:#ffd36d}
+
+.tooltip{
+  position:absolute; pointer-events:none; transform:translate(10px,-10px);
+  background:var(--tooltip); border:1px solid var(--tooltip-b); color:#e8eeff;
+  font-size:12px; padding:6px 8px; border-radius:6px; box-shadow:0 6px 18px rgba(0,0,0,.35); z-index:10;
+  white-space:nowrap;
+}
+
+footer{padding:12px 20px;color:var(--muted)}
+
+@media (max-width: 1080px){
+  .layout{grid-template-columns:1fr}
+}
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #0a0f22, #1e293b);
+  color: #e0e6ff;
+}
+
+header {
+  background: linear-gradient(90deg, #4f46e5, #2563eb);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.layout {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background: #111827;
+  padding: 1rem;
+  border-right: 1px solid #1f2937;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  color: #93c5fd;
+}
+
+.sidebar label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.sidebar input, .sidebar select {
+  margin-left: 0.5rem;
+  background: #1f2937;
+  color: #e0e6ff;
+  border: 1px solid #374151;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.btn-group button,
+.toolbar-vert button {
+  margin: 4px 0;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn-group button:hover,
+.toolbar-vert button:hover {
+  background: #1d4ed8;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+}
+
+.pane {
+  background: #0f172a;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.pane-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chip {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.chip-jarvis {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+.chip-graham {
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+footer {
+  background: #111827;
+  text-align: center;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}

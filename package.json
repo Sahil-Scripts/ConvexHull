@@ -1,0 +1,14 @@
+{
+  "name": "convex-hull-compare",
+  "version": "1.2.0",
+  "description": "Convex Hull Comparative Analysis (Jarvis vs Graham) — Node + Express + Workers + Canvas + Teach Mode + Hover Tooltips",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "cli": "node cli.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
